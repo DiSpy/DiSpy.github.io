@@ -1,0 +1,69 @@
+<html>
+
+<head>
+    <title>This is a page.</title>
+</head>
+
+<body>
+    <script>
+        // begin config
+        fetchUrl = "https://qffj.expium.xyz/feed/tstllc.jira.com/f9c266bb-c369-48af-97bb-3a426b30b84d?token=06abc9f1-ca8b-497b-ab85-968bdc341856"
+        fields = ["Project_key", "Project_name", "Summary"];
+        // end config
+
+        // begin work
+        function tableCreate(data, fields) {
+            var body = document.getElementsByTagName("body")[0];
+            var tbl = document.createElement("table");
+            tbl.style.width = "100%";
+            tbl.setAttribute("border", "0");
+            var tbdy = document.createElement("tbody");
+            var trhead = document.createElement("tr");
+
+            // for each field we"re grabbing from the objects
+            // write a header column in the table.
+            for (let i = 0; i < fields.length; i++) {
+                var fieldName = fields[i]
+                var th = document.createElement("th");
+                th.appendChild(document.createTextNode(fieldName));
+                trhead.append(th);
+            }
+            tbdy.appendChild(trhead);
+
+            // for each object in the data array
+            for (let j = 0; j < data.length; j++) {
+                // get a reference to the object
+                var objData = data[j];
+
+                // create a table row
+                var tr = document.createElement("tr");
+
+                // for each field we want to write
+                for (let k = 0; k < fields.length; k++) {
+                    // get a reference to the data for field fields[k]
+                    var key = fields[k];
+                    var value = objData[key];
+
+                    // write the specified fields to the table row
+                    var td = document.createElement("td");
+                    td.appendChild(document.createTextNode(value));
+                    tr.appendChild(td);
+                }
+                tbdy.appendChild(tr);
+            }
+            tbl.appendChild(tbdy);
+            body.appendChild(tbl)
+        }
+
+        fetch(fetchUrl).then(
+            function (u) { return u.json(); }
+        ).then(
+            function (json) {
+                tableCreate(json.data, fields);
+            }
+        )
+    </script>
+
+</body>
+
+</html>
