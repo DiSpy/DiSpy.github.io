@@ -2,24 +2,28 @@
 
 <head>
     <title>This is a page.</title>
+ <!-- Set the style for the table -->
     <style> 
-/* Table Style Settings */
-
-th {
-      color: white;
-      background-color: black;
-      padding: 0px;
-      vertical-align: top;
-      border: 1px solid #ffffff;
-    }
-
-table, tbody, tr, td {
-    color: black;
-    background-color: white;
-    padding: 0px;
-    vertical-align: top;
-    border: 1px solid #000000;
-}
+      
+      th {
+        color: #FFFFFF;
+        background-color: #000000;
+        font-weight: bold;
+        text-align: center;
+        border: 1px solid #000000;
+        padding: 2px 2px;
+      }
+      
+      table, trhead, tbdy, tbody, tr, td {
+        color: #000000;
+        background-color: white;
+        border: 1px solid #000000;
+        padding: 2px 2px;
+      }
+      
+      table {
+        width: 650px;
+      }
     </style>
 </head>
 
@@ -28,18 +32,23 @@ table, tbody, tr, td {
     <br />
     <br />
     <br />
+
+<!-- This determines where the table will be displayed -->
+    <br />
+    <div id="showtablehere"></div>
+    <br />
+
+<!-- Here is the script to prettify the output -->
     <script>
-        // begin config
-        fetchUrl = "https://qffj.expium.xyz/feed/tstllc.jira.com/f9c266bb-c369-48af-97bb-3a426b30b84d?token=06abc9f1-ca8b-497b-ab85-968bdc341856"
+        // begin config, change these values as needed
+        fetchUrl = "https://qffj.expium.xyz/feed/tstllc.jira.com/312e34bf-7e99-471f-ac98-fbabf00df475?token=151380af-1f95-4594-abb9-8eb051b9d6b2"
         fields = ["Project_name", "Summary"];
         // end config
 
-        // begin work
+        // begin work, do not change below this line
         function tableCreate(data, fields) {
             var body = document.getElementsByTagName("body")[0];
             var tbl = document.createElement("table");
-            //tbl.style.width = "100%";
-            tbl.setAttribute("border", "0");
             var tbdy = document.createElement("tbody");
             var trhead = document.createElement("tr");
 
@@ -75,7 +84,7 @@ table, tbody, tr, td {
                 tbdy.appendChild(tr);
             }
             tbl.appendChild(tbdy);
-            body.appendChild(tbl)
+            document.querySelector("#showtablehere").appendChild(tbl)
         }
 
         fetch(fetchUrl).then(
@@ -86,6 +95,7 @@ table, tbody, tr, td {
             }
         )
     </script>
+
 
 </body>
 
